@@ -30,7 +30,6 @@ namespace XNAInnlevering2
         public void Update(GameTime gameTime) 
         {
             _snakeRect.X += 1;
-            Console.Beep(25000, 100000);
         }
 
         public void Draw(GameTime gameTime) 
