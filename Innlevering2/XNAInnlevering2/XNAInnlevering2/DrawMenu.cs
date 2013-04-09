@@ -53,6 +53,7 @@ namespace XNAInnlevering2
             _musicMenu.Update(gameTime);
             _controlsMenu.Update(gameTime);
             _creditsMenu.Update(gameTime);
+            snake.Update(gameTime);
 
             KeyboardState keyboardState = Keyboard.GetState();
             _previousMouseState = _currentMouseState;
@@ -87,26 +88,26 @@ namespace XNAInnlevering2
             base.Draw(gameTime);
             _spriteBatch.Begin();
 
-            if (_drawStartMenu || !_gameHasStarted)
-            {
-                _startMenu.Draw(gameTime);
-                _startMenu.IsBeingDrawn = true;
-            }
-            if (_drawMusicMenu)
-            {
-                _musicMenu.Draw(gameTime);
-                _musicMenu.IsBeingDrawn = true;
-            }
-            if (_drawControls)
-            {
-                _controlsMenu.Draw(gameTime);
-                _controlsMenu.IsBeingDrawn = true;
-            }
-            if (_drawCredits)
-            {
-                _creditsMenu.Draw(gameTime);
-                _creditsMenu.IsBeingDrawn = true;
-            }
+            //if (_drawStartMenu || !_gameHasStarted)
+            //{
+            //    _startMenu.Draw(gameTime);
+            //    _startMenu.IsBeingDrawn = true;
+            //}
+            //if (_drawMusicMenu)
+            //{
+            //    _musicMenu.Draw(gameTime);
+            //    _musicMenu.IsBeingDrawn = true;
+            //}
+            //if (_drawControls)
+            //{
+            //    _controlsMenu.Draw(gameTime);
+            //    _controlsMenu.IsBeingDrawn = true;
+            //}
+            //if (_drawCredits)
+            //{
+            //    _creditsMenu.Draw(gameTime);
+            //    _creditsMenu.IsBeingDrawn = true;
+            //}
 
             snake.Draw(gameTime);
 
