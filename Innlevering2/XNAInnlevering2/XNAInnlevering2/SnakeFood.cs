@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 namespace XNAInnlevering2
-{
+{   
     public class SnakeFood
     {
         private SpriteBatch spriteBatch;
