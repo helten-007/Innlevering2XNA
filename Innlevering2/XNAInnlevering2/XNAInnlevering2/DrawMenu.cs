@@ -25,7 +25,7 @@ namespace XNAInnlevering2
         private Rectangle _mouseRect, clientBounds;
         private bool _drawStartMenu, _drawMusicMenu, _drawControls, _drawCredits, _gameIsPaused, _gameHasStarted, _drawMenus;
 
-        Snake snake;
+        SnakeFood food;
 
         public DrawMenu(Game game)
             : base(game)
@@ -45,7 +45,7 @@ namespace XNAInnlevering2
             _controlsMenu = new ControlsMenu(_spriteBatch, _content, clientBounds);
             _creditsMenu = new CreditsMenu(_spriteBatch, _content, clientBounds);
 
-            snake = new Snake(_spriteBatch, _content, new Vector2(0, 0));
+            food = new SnakeFood(_spriteBatch, _content);
         }
 
         public override void Update(GameTime gameTime)
@@ -55,7 +55,8 @@ namespace XNAInnlevering2
             _musicMenu.Update(gameTime);
             _controlsMenu.Update(gameTime);
             _creditsMenu.Update(gameTime);
-            snake.Update(gameTime);
+            food.Update(gameTime);
+
             KeyboardState keyboardState = Keyboard.GetState();
             _previousMouseState = _currentMouseState;
             _currentMouseState = Mouse.GetState();
@@ -69,9 +70,7 @@ namespace XNAInnlevering2
             base.Draw(gameTime);
             _spriteBatch.Begin();
 
-            
-
-            snake.Draw(gameTime);
+            food.Draw(gameTime);
 
             _spriteBatch.End();
         }
