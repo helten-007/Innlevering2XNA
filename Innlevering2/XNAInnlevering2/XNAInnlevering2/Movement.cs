@@ -24,10 +24,10 @@ namespace XNAInnlevering2
             KeyboardState _currentKeyState = Keyboard.GetState();
             UpdateMovement(_currentKeyState);
             _previousKeyState = _currentKeyState;
-            snake1Position = new Vector2(200, 200);
-            snake2Position = new Vector2(800, 200);
-            snake1Position.Y--;
-            snake2Position.Y--;
+            snake1Position = new Vector2(200, 240);
+            snake2Position = new Vector2(600, 240);
+            snake1Position.X++;
+            snake2Position.X--;
         }
 
         private void UpdateMovement(KeyboardState _currentKeyState)

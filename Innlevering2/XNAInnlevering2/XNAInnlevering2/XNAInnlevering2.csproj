@@ -75,6 +75,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Movement.cs" />
     <Compile Include="SnakeFood.cs" />
     <Compile Include="ControlsMenu.cs" />
     <Compile Include="CreditsMenu.cs" />

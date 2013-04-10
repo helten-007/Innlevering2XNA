@@ -25,6 +25,8 @@ namespace XNAInnlevering2
             Content.RootDirectory = "Content";
             DrawableGameComponent renderer = new DrawMenu(this);
             Components.Add(renderer);
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 480;
             
         }
 
@@ -71,7 +73,9 @@ namespace XNAInnlevering2
             MouseState mouseState = Mouse.GetState();
             Window.Title = "X: " + mouseState.X + " Y: " + mouseState.Y;
 
-
+            KeyboardState keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyDown(Keys.Escape) == true)
+                Exit();
         }
 
         /// <summary>
