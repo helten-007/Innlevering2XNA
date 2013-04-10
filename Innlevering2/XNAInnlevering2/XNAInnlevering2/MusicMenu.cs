@@ -22,8 +22,8 @@ namespace XNAInnlevering2
         public bool Song3 { get; set; }
         public bool DrawStartMenu { get; set; }
 
-        public MusicMenu(Game game, SpriteBatch spriteBatch, ContentManager content)
-            : base(game, spriteBatch, content)
+        public MusicMenu(SpriteBatch spriteBatch, ContentManager content, Rectangle clientBounds)
+            : base(spriteBatch, content, clientBounds)
         {
             //_songTextureChecked = content.Load<Texture2D>("buttonBackChecked");
             //_songTextureUnchecked = content.Load<Texture2D>("buttonBackUnchecked");
@@ -34,22 +34,22 @@ namespace XNAInnlevering2
             {
                 if (i == 0)
                 {
-                    _songButton1 = new ButtonData(game, spriteBatch, content, i, "Sang1");
+                    _songButton1 = new ButtonData(spriteBatch, content, clientBounds, i, "Sang1");
                     _startMenuList.Add(_songButton1);
                 }
                 else if (i == 1)
                 {
-                    _songButton2 = new ButtonData(game, spriteBatch, content, i, "Sang2");
+                    _songButton2 = new ButtonData(spriteBatch, content, clientBounds, i, "Sang2");
                     _startMenuList.Add(_songButton2);
                 }
                 else if (i == 2)
                 {
-                    _songButton3 = new ButtonData(game, spriteBatch, content, i, "Sang3");
+                    _songButton3 = new ButtonData(spriteBatch, content, clientBounds, i, "Sang3");
                     _startMenuList.Add(_songButton3);
                 }
                 else if (i == 3)
                 {
-                    _mainMenuButton = new ButtonData(game, spriteBatch, content, i, "Main Menu");
+                    _mainMenuButton = new ButtonData(spriteBatch, content, clientBounds, i, "Main Menu");
                     _startMenuList.Add(_mainMenuButton);
                 }
             }

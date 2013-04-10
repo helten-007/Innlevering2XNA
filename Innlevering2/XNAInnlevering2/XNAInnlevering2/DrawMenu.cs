@@ -22,7 +22,7 @@ namespace XNAInnlevering2
         private ControlsMenu _controlsMenu;
         private CreditsMenu _creditsMenu;
         private MouseState _currentMouseState, _previousMouseState;
-        private Rectangle _mouseRect;
+        private Rectangle _mouseRect, clientBounds;
         private bool _drawStartMenu, _drawMusicMenu, _drawControls, _drawCredits, _gameIsPaused, _gameHasStarted, _drawMenus;
 
         Snake snake;
@@ -37,11 +37,13 @@ namespace XNAInnlevering2
         {
             base.LoadContent();
             _content = Game.Content;
+            clientBounds = game.Window.ClientBounds;
+            Console.WriteLine(clientBounds);
             _spriteBatch = new SpriteBatch(Game.GraphicsDevice);
-            _startMenu = new StartMenu(game, _spriteBatch, _content);
-            _musicMenu = new MusicMenu(game, _spriteBatch, _content);
-            _controlsMenu = new ControlsMenu(game, _spriteBatch, _content);
-            _creditsMenu = new CreditsMenu(game, _spriteBatch, _content);
+            _startMenu = new StartMenu(_spriteBatch, _content, clientBounds);
+            _musicMenu = new MusicMenu(_spriteBatch, _content, clientBounds);
+            _controlsMenu = new ControlsMenu(_spriteBatch, _content, clientBounds);
+            _creditsMenu = new CreditsMenu(_spriteBatch, _content, clientBounds);
 
             snake = new Snake(_spriteBatch, _content);
         }

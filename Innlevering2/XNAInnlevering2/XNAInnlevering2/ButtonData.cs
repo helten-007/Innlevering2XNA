@@ -25,9 +25,9 @@ namespace XNAInnlevering2
         public Rectangle ButtonPosition { get; set; }
         public Vector2 TextPosition { get; set; }
 
-        public ButtonData(Game game, SpriteBatch spriteBatch, ContentManager content, 
+        public ButtonData(SpriteBatch spriteBatch, ContentManager content, Rectangle clientBounds,
             int fromTheTop, String buttonText)
-            : base(game, spriteBatch, content)
+            : base(spriteBatch, content, clientBounds)
         {
             ButtonTexture = content.Load<Texture2D>("buttonBack");
             ButtonText = buttonText;

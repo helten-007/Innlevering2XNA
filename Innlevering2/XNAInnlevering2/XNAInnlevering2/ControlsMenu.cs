@@ -18,10 +18,10 @@ namespace XNAInnlevering2
 
         public bool DrawStartMenu { get; set; }
 
-        public ControlsMenu(Game game, SpriteBatch spriteBatch, ContentManager content)
-            : base(game, spriteBatch, content)
+        public ControlsMenu(SpriteBatch spriteBatch, ContentManager content, Rectangle clientBounds)
+            : base(spriteBatch, content, clientBounds)
         {
-            _mainMenuButton = new MainMenuButton(game, spriteBatch, content, "Main Menu");
+            _mainMenuButton = new MainMenuButton(spriteBatch, content, clientBounds, "Main Menu");
         }
 
         public override void Update(GameTime gameTime)

@@ -18,7 +18,6 @@ namespace XNAInnlevering2
 
         public SpriteBatch spriteBatch;
         public ContentManager content;
-        public Game game;
         public MouseState _currentMouseState, _previousMouseState;
         public Rectangle _mouseRect;
 
@@ -29,14 +28,13 @@ namespace XNAInnlevering2
         public SpriteFont Font { get; set; }
         public bool IsBeingDrawn { get; set; }
 
-        public Menu(Game game, SpriteBatch spriteBatch, ContentManager content) 
+        public Menu(SpriteBatch spriteBatch, ContentManager content, Rectangle clientBounds) 
         {
             this.spriteBatch = spriteBatch;
             this.content = content;
-            this.game = game;
             MenuTexture = content.Load<Texture2D>("menuBack");
             BackgroundColor = Color.White;
-            ClientBounds = game.Window.ClientBounds;
+            ClientBounds = clientBounds;
             Font = content.Load<SpriteFont>("Arial");
 
             _menuPosition = new Rectangle((ClientBounds.Width / 2) - (MenuTexture.Width / 2), 

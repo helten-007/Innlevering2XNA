@@ -23,8 +23,8 @@ namespace XNAInnlevering2
         public bool DrawControlsMenu { get; set; }
         public bool DrawCreditsMenu { get; set; }
 
-        public StartMenu(Game game, SpriteBatch spriteBatch, ContentManager content) 
-            :base(game, spriteBatch, content)
+        public StartMenu(SpriteBatch spriteBatch, ContentManager content, Rectangle clientBounds) 
+            :base(spriteBatch, content, clientBounds)
         {
             _startMenuList = new List<ButtonData>();
 
@@ -32,22 +32,22 @@ namespace XNAInnlevering2
             {
                 if (i == 0)
                 {
-                    startGameButton = new ButtonData(game, spriteBatch, content, i, "Start Game");
+                    startGameButton = new ButtonData(spriteBatch, content, clientBounds, i, "Start Game");
                     _startMenuList.Add(startGameButton);
                 }
                 else if (i == 1)
                 {
-                    musicMenuButton = new ButtonData(game, spriteBatch, content, i, "Music");
+                    musicMenuButton = new ButtonData(spriteBatch, content, clientBounds, i, "Music");
                     _startMenuList.Add(musicMenuButton);
                 }
                 else if (i == 2)
                 {
-                    controlsButton = new ButtonData(game, spriteBatch, content, i, "Controls");
+                    controlsButton = new ButtonData(spriteBatch, content, clientBounds, i, "Controls");
                     _startMenuList.Add(controlsButton);
                 }
                 else if (i == 3)
                 {
-                    creditsButton = new ButtonData(game, spriteBatch, content, i, "Credits");
+                    creditsButton = new ButtonData(spriteBatch, content, clientBounds, i, "Credits");
                     _startMenuList.Add(creditsButton);
                 }
             }

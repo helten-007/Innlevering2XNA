@@ -23,8 +23,9 @@ namespace XNAInnlevering2
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            DrawableGameComponent renderer = new DrawMenu(this);
+            DrawableGameComponent renderer = new DrawGame(this);
             Components.Add(renderer);
+            
         }
 
         /// <summary>

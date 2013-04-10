@@ -25,8 +25,8 @@ namespace XNAInnlevering2
         public Color ColorButton { get; set; }
         public Color ColorText { get; set; }
 
-        public MainMenuButton(Game game, SpriteBatch spriteBatch, ContentManager content, String buttonText)
-            : base(game, spriteBatch, content)
+        public MainMenuButton(SpriteBatch spriteBatch, ContentManager content, Rectangle clientBounds, String buttonText)
+            : base(spriteBatch, content, clientBounds)
         {
             _buttonTexture = content.Load<Texture2D>("mainMenuButton");
             ButtonTexture = _buttonTexture;

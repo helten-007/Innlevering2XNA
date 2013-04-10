@@ -18,10 +18,10 @@ namespace XNAInnlevering2
 
         public bool DrawStartMenu { get; set; }
 
-        public CreditsMenu(Game game, SpriteBatch spriteBatch, ContentManager content) 
-            : base(game, spriteBatch, content)
+        public CreditsMenu(SpriteBatch spriteBatch, ContentManager content, Rectangle clientBounds) 
+            : base(spriteBatch, content, clientBounds)
         {
-            _mainMenuButton = new ButtonData(game, spriteBatch, content, 3, "CreditsTest");
+            _mainMenuButton = new ButtonData(spriteBatch, content, clientBounds, 3, "CreditsTest");
         }
 
         public override void Update(GameTime gameTime)

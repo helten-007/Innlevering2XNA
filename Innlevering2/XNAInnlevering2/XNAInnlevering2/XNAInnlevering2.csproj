@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="ControlsMenu.cs" />
     <Compile Include="CreditsMenu.cs" />
+    <Compile Include="DrawGame.cs" />
     <Compile Include="DrawMenu.cs" />
     <Compile Include="IDrawSprites.cs" />
     <Compile Include="MainMenuButton.cs" />
