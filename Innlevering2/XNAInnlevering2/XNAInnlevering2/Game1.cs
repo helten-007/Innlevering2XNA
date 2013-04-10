@@ -68,14 +68,15 @@ namespace XNAInnlevering2
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-
             MouseState mouseState = Mouse.GetState();
             Window.Title = "X: " + mouseState.X + " Y: " + mouseState.Y;
 
             KeyboardState keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.Escape) == true)
                 Exit();
+
+
+            base.Update(gameTime);
         }
 
         /// <summary>
