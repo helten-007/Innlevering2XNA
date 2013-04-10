@@ -16,25 +16,72 @@ namespace XNAInnlevering2
     {
         private SpriteBatch spriteBatch;
         private ContentManager content;
-        private Texture2D _snakePart;
+        private Texture2D _snakePart, snakeHead;
+        private List<Texture2D> _snakeList;
+        private KeyboardState key;
         private Rectangle _snakeRect;
+        private Vector2 SnakePos;
+
+        private bool movingUp, movingDown, movingRight, movingLeft;
+
 
         public Snake(SpriteBatch spriteBatch, ContentManager content) 
         {
             this.spriteBatch = spriteBatch;
             this.content = content;
+            snakeHead = content.Load<Texture2D>("snakeHead");
             _snakePart = content.Load<Texture2D>("SnakeFood");
-            _snakeRect = new Rectangle(0, 20, 20, 20);
+            _snakeList = new List<Texture2D>();
         }
 
         public void Update(GameTime gameTime) 
         {
-            _snakeRect.X += 1;
+            _snakeRect = new Rectangle(SnakePos.X, SnakePos.Y, );
+
+            if (key.IsKeyDown(Keys.W))
+            {
+                movingUp = true;
+                movingDown = false;
+                movingRight = false;
+                movingLeft = false;
+            }
+            if (key.IsKeyDown(Keys.S))
+            {
+                movingUp = false; ;
+                movingDown = true;
+                movingRight = false;
+                movingLeft = false;
+            }
+            if (key.IsKeyDown(Keys.D))
+            {
+                movingUp = false; ;
+                movingDown = false;
+                movingRight = true;
+                movingLeft = false;
+            }
+            if (key.IsKeyDown(Keys.A))
+            {
+                movingUp = false;
+                movingDown = false;
+                movingRight = false;
+                movingLeft = true;
+            }
+
+            if (movingUp)
+                SnakePos.Y -= 4;
+            if (movingDown)
+                SnakePos.Y += 4;
+            if (movingRight)
+                SnakePos.X += 4;
+            if (movingLeft)
+                SnakePos.X -= 4;
         }
 
         public void Draw(GameTime gameTime) 
         {
-            spriteBatch.Draw(_snakePart, _snakeRect, Color.White);
+            spriteBatch.Draw(snakeHead, SnakePos, Color.White);
+
+            for (int i = 0;)
         }
     }
 }

@@ -15,7 +15,7 @@ namespace XNAInnlevering2
     public class DrawMenu : DrawableGameComponent
     {
         private SpriteBatch _spriteBatch;
-        private ContentManager _content;
+        public ContentManager _content;
         private Game game;
         private StartMenu _startMenu;
         private MusicMenu _musicMenu;
@@ -45,7 +45,7 @@ namespace XNAInnlevering2
             _controlsMenu = new ControlsMenu(_spriteBatch, _content, clientBounds);
             _creditsMenu = new CreditsMenu(_spriteBatch, _content, clientBounds);
 
-            snake = new Snake(_spriteBatch, _content);
+            snake = new Snake(_spriteBatch, _content, new Vector2(0, 0));
         }
 
         public override void Update(GameTime gameTime)
@@ -55,33 +55,13 @@ namespace XNAInnlevering2
             _musicMenu.Update(gameTime);
             _controlsMenu.Update(gameTime);
             _creditsMenu.Update(gameTime);
-
+            snake.Update(gameTime);
             KeyboardState keyboardState = Keyboard.GetState();
             _previousMouseState = _currentMouseState;
             _currentMouseState = Mouse.GetState();
             _mouseRect = new Rectangle(_currentMouseState.X, _currentMouseState.Y, 10, 10);
 
-            if (keyboardState.IsKeyDown(Keys.Escape))
-            {
-                _gameIsPaused = true;
-                _drawStartMenu = true;
-            }
-
-            if (_drawStartMenu)
-            {
-                _drawMusicMenu = false;
-                _drawControls = false;
-                _drawCredits = false;
-            }
-
-            if (IsMousePressed() && _mouseRect.Intersects(_startMenu.startGameButton.ButtonPosition))
-            {
-                Console.WriteLine("halla");
-                _startMenu.IsBeingDrawn = true;
-                _drawStartMenu = false;
-                _gameHasStarted = true;
-                _gameIsPaused = false;
-            }
+            
         }
 
         public override void Draw(GameTime gameTime)
@@ -89,26 +69,7 @@ namespace XNAInnlevering2
             base.Draw(gameTime);
             _spriteBatch.Begin();
 
-            if (_drawStartMenu || !_gameHasStarted)
-            {
-                _startMenu.Draw(gameTime);
-                _startMenu.IsBeingDrawn = true;
-            }
-            if (_drawMusicMenu)
-            {
-                _musicMenu.Draw(gameTime);
-                _musicMenu.IsBeingDrawn = true;
-            }
-            if (_drawControls)
-            {
-                _controlsMenu.Draw(gameTime);
-                _controlsMenu.IsBeingDrawn = true;
-            }
-            if (_drawCredits)
-            {
-                _creditsMenu.Draw(gameTime);
-                _creditsMenu.IsBeingDrawn = true;
-            }
+            
 
             snake.Draw(gameTime);
 

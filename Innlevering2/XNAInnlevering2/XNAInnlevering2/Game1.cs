@@ -23,7 +23,7 @@ namespace XNAInnlevering2
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            DrawableGameComponent renderer = new DrawGame(this);
+            DrawableGameComponent renderer = new DrawMenu(this);
             Components.Add(renderer);
             
         }
@@ -80,7 +80,7 @@ namespace XNAInnlevering2
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Green);
+            GraphicsDevice.Clear(Color.White);
             
             base.Draw(gameTime);
         }
