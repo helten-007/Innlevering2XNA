@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 namespace XNAInnlevering2
-{   
+{
     public class SnakeFood
     {
         private SpriteBatch spriteBatch;
@@ -41,7 +41,6 @@ namespace XNAInnlevering2
                 tid = 0;
                 _foodRect.X = rand.Next(0, 800 - _snakeFood.Width);
                 _foodRect.Y = rand.Next(480 - _snakeFood.Height);
-                Console.WriteLine("tegner mat");
             }
         }
 

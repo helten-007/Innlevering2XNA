@@ -77,9 +77,10 @@
   <ItemGroup>
     <Compile Include="BackgroundMusic.cs" />
     <Compile Include="Movement.cs" />
+    <Compile Include="DrawData.cs" />
+    <Compile Include="MouseClass.cs" />
     <Compile Include="SnakeFood.cs" />
     <Compile Include="ControlsMenu.cs" />
-    <Compile Include="CreditsMenu.cs" />
     <Compile Include="DrawGame.cs" />
     <Compile Include="DrawMenu.cs" />
     <Compile Include="IDrawSprites.cs" />

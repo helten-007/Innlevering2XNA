@@ -14,41 +14,52 @@ namespace XNAInnlevering2
 {
     public class StartMenu : Menu
     {
-        private List<ButtonData> _startMenuList;
+        private List<DrawData> _startMenuList;
+        private Texture2D _buttonTexture;
+        private Rectangle _buttonPosition;
 
-        public ButtonData startGameButton, musicMenuButton, controlsButton, creditsButton;
+        public DrawData startGameButton, restartButton, musicMenuButton, controlsButton, quitGameButton;
 
         public bool RunGame { get; set; }
+        public bool RestartGame { get; set; }
         public bool DrawMusicMenu { get; set; }
         public bool DrawControlsMenu { get; set; }
-        public bool DrawCreditsMenu { get; set; }
+        public bool QuitGame { get; set; }
 
         public StartMenu(SpriteBatch spriteBatch, ContentManager content, Rectangle clientBounds) 
             :base(spriteBatch, content, clientBounds)
         {
-            _startMenuList = new List<ButtonData>();
-
-            for (int i = 0; i < 4; i++)
+            _startMenuList = new List<DrawData>();
+            _buttonTexture = content.Load<Texture2D>("buttonBack");
+            for (int i = 0; i < 5; i++)
             {
+                _buttonPosition = new Rectangle(MenuPosition.X + (MenuTexture.Width / 2) - (_buttonTexture.Width / 2),
+                        (MenuPosition.Y + 50) + i * (_buttonTexture.Height + 10), _buttonTexture.Width, _buttonTexture.Height);
+
                 if (i == 0)
                 {
-                    startGameButton = new ButtonData(spriteBatch, content, clientBounds, i, "Start Game");
+                    startGameButton = new DrawData(_buttonTexture, _buttonPosition, "Start Game", Font, true);
                     _startMenuList.Add(startGameButton);
                 }
-                else if (i == 1)
+                else if(i == 1)
                 {
-                    musicMenuButton = new ButtonData(spriteBatch, content, clientBounds, i, "Music");
-                    _startMenuList.Add(musicMenuButton);
+                    restartButton = new DrawData(_buttonTexture, _buttonPosition, "Restart Game", Font, true);
+                    _startMenuList.Add(restartButton);
                 }
                 else if (i == 2)
                 {
-                    controlsButton = new ButtonData(spriteBatch, content, clientBounds, i, "Controls");
-                    _startMenuList.Add(controlsButton);
+                    musicMenuButton = new DrawData(_buttonTexture, _buttonPosition, "Music", Font, true);
+                    _startMenuList.Add(musicMenuButton);
                 }
                 else if (i == 3)
                 {
-                    creditsButton = new ButtonData(spriteBatch, content, clientBounds, i, "Credits");
-                    _startMenuList.Add(creditsButton);
+                    controlsButton = new DrawData(_buttonTexture, _buttonPosition, "Controls", Font, true);
+                    _startMenuList.Add(controlsButton);
+                }
+                else if (i == 4)
+                {
+                    quitGameButton = new DrawData(_buttonTexture, _buttonPosition, "Quit Game", Font, true);
+                    _startMenuList.Add(quitGameButton);
                 }
             }
         }
@@ -57,19 +68,25 @@ namespace XNAInnlevering2
         {
             base.Update(gameTime);
             startGameButton.Update(gameTime);
+            restartButton.Update(gameTime);
             musicMenuButton.Update(gameTime);
             controlsButton.Update(gameTime);
-            creditsButton.Update(gameTime);
+            quitGameButton.Update(gameTime);
+
+            if (startGameButton.isClicked)
+            {
+                RunGame = true;
+            }
         }
 
         public override void Draw(GameTime gameTime) 
         {
             base.Draw(gameTime);
 
-            foreach (ButtonData button in _startMenuList)
+            foreach (DrawData button in _startMenuList)
             {
-                spriteBatch.Draw(button.ButtonTexture, button.ButtonPosition, button.ColorButton);
-                spriteBatch.DrawString(Font, button.ButtonText, button.TextPosition, button.ColorText);
+                spriteBatch.Draw(button.Texture, button.Position, button.TextureColor);
+                spriteBatch.DrawString(Font, button.Text, button.TextPosition, button.TextColor);
             }
         }
     }

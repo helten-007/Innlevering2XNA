@@ -18,8 +18,6 @@ namespace XNAInnlevering2
 
         public SpriteBatch spriteBatch;
         public ContentManager content;
-        public MouseState _currentMouseState, _previousMouseState;
-        public Rectangle _mouseRect;
 
         public Rectangle ClientBounds { get; set; }
         public Texture2D MenuTexture { get; set; }
@@ -43,24 +41,11 @@ namespace XNAInnlevering2
         }
 
         public virtual void Update(GameTime gameTime) 
-        {
-            _previousMouseState = _currentMouseState;
-            _currentMouseState = Mouse.GetState();
-            _mouseRect = new Rectangle(_currentMouseState.X, _currentMouseState.Y, 5, 5);
-
-            if (IsBeingDrawn)
-                MenuPosition = _menuPosition;
-        }
+        {}
 
         public virtual void Draw(GameTime gameTime) 
         {
             spriteBatch.Draw(MenuTexture, MenuPosition, BackgroundColor);
-        }
-
-        public bool IsMousePressed()
-        {
-            return _currentMouseState.LeftButton == ButtonState.Released &&
-                _previousMouseState.LeftButton == ButtonState.Pressed;
         }
     }
 }

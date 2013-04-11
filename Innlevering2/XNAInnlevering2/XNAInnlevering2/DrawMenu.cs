@@ -14,18 +14,18 @@ namespace XNAInnlevering2
 {
     public class DrawMenu : DrawableGameComponent
     {
+        private Game game;
         private SpriteBatch _spriteBatch;
         public ContentManager _content;
-        private Game game;
-        private StartMenu _startMenu;
-        private MusicMenu _musicMenu;
-        private ControlsMenu _controlsMenu;
-        private CreditsMenu _creditsMenu;
+        
         private MouseState _currentMouseState, _previousMouseState;
-        private Rectangle _mouseRect, clientBounds;
-        private bool _drawStartMenu, _drawMusicMenu, _drawControls, _drawCredits, _gameIsPaused, _gameHasStarted, _drawMenus;
+        private Rectangle clientBounds;
+        private bool _gameIsRunning;
 
-        SnakeFood food;
+        private SnakeFood _snakeFood;
+        private SnakeHead _snakeHead;
+        private StartMenu _startMenu;
+        private MouseClass _mouse;
 
         public DrawMenu(Game game)
             : base(game)
@@ -36,32 +36,36 @@ namespace XNAInnlevering2
         protected override void LoadContent()
         {
             base.LoadContent();
+            _spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             _content = Game.Content;
             clientBounds = game.Window.ClientBounds;
-            Console.WriteLine(clientBounds);
-            _spriteBatch = new SpriteBatch(Game.GraphicsDevice);
-            _startMenu = new StartMenu(_spriteBatch, _content, clientBounds);
-            _musicMenu = new MusicMenu(_spriteBatch, _content, clientBounds);
-            _controlsMenu = new ControlsMenu(_spriteBatch, _content, clientBounds);
-            _creditsMenu = new CreditsMenu(_spriteBatch, _content, clientBounds);
 
-            food = new SnakeFood(_spriteBatch, _content);
+            _snakeFood = new SnakeFood(_spriteBatch, _content);
+            _snakeHead = new SnakeHead(_spriteBatch, _content, clientBounds);
+
+            _startMenu = new StartMenu(_spriteBatch, _content, clientBounds);
+            _mouse = new MouseClass(_spriteBatch, _content);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            _startMenu.Update(gameTime);
-            _musicMenu.Update(gameTime);
-            _controlsMenu.Update(gameTime);
-            _creditsMenu.Update(gameTime);
-            food.Update(gameTime);
+            if (_gameIsRunning)
+            {
+                _snakeFood.Update(gameTime);
+                _snakeHead.Update(gameTime);
+            }
+            else
+            {
+                _startMenu.Update(gameTime);
+                _mouse.Update(gameTime);
+            }
+            if (_snakeHead.SnakeIsDead)
+                game.Exit();
 
+            if (_startMenu.RunGame)
+                _gameIsRunning = true;
             KeyboardState keyboardState = Keyboard.GetState();
-            _previousMouseState = _currentMouseState;
-            _currentMouseState = Mouse.GetState();
-            _mouseRect = new Rectangle(_currentMouseState.X, _currentMouseState.Y, 10, 10);
-
             
         }
 
@@ -69,9 +73,17 @@ namespace XNAInnlevering2
         {
             base.Draw(gameTime);
             _spriteBatch.Begin();
+            
+            _snakeFood.Draw(gameTime);
+            _snakeHead.Draw(gameTime);
 
-            food.Draw(gameTime);
-
+            if (!_gameIsRunning)
+            {
+                _startMenu.Draw(gameTime);
+                _mouse.Draw(gameTime);
+            }
+            if (_gameIsRunning)
+                Console.WriteLine("balle");
             _spriteBatch.End();
         }
 

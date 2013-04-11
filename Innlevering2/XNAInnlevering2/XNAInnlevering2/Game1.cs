@@ -48,7 +48,6 @@ namespace XNAInnlevering2
         /// </summary>
         protected override void Initialize()
         {
-            IsMouseVisible = true;
 
             base.Initialize();
         }
