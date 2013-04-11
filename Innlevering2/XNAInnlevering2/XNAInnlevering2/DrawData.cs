@@ -18,8 +18,8 @@ namespace XNAInnlevering2
         private Rectangle _position, _firstPosition;
         private MouseClass _mouse;
 
-        public bool intersectsMouse { get; set; }
-        public bool isClicked { get; set; }
+        public bool IntersectsMouse { get; set; }
+        public bool IsClicked { get; set; }
 
         public Texture2D Texture { get; set; }
         public Color TextureColor { get; set; }
@@ -60,15 +60,14 @@ namespace XNAInnlevering2
             _mouse.Update(gameTime);
 
             if (_mouse.IntersectsMouse)
-                intersectsMouse = true;
+                IntersectsMouse = true;
             else
-                intersectsMouse = false;
+                IntersectsMouse = false;
 
             Position = _position;
-            if (clickable && intersectsMouse)
+            if (clickable && IntersectsMouse)
             {
-                Console.WriteLine("mus treffer");
-                TextureColor = Color.Blue;
+                TextureColor = Color.Gray;
                 if (Position.Width < _firstPosition.Width + 20 && Position.Height < _firstPosition.Height + 20)
                 {
                     _position.X -= 1;
@@ -79,7 +78,6 @@ namespace XNAInnlevering2
             }
             else
             {
-                Console.WriteLine("treffer ikke");
                 TextureColor = Color.White;
                 if (Position.Width > _firstPosition.Width && Position.Height > _firstPosition.Height)
                 {
@@ -90,10 +88,10 @@ namespace XNAInnlevering2
                 }
             }
 
-            if (_mouse.IsMouseClicked && clickable && intersectsMouse)
-                isClicked = true;
+            if (_mouse.IsMouseClicked && clickable && IntersectsMouse)
+                IsClicked = true;
             else
-                isClicked = false;
+                IsClicked = false;
         }
     }
 }

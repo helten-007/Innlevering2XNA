@@ -73,10 +73,34 @@ namespace XNAInnlevering2
             controlsButton.Update(gameTime);
             quitGameButton.Update(gameTime);
 
-            if (startGameButton.isClicked)
-            {
+            if (startGameButton.IsClicked)
                 RunGame = true;
+            else
+                RunGame = false;
+
+            if (restartButton.IsClicked)
+            {
+                RestartGame = true;
+                Console.WriteLine("Restart Game");
             }
+            else
+                RestartGame = false;
+
+            if (musicMenuButton.IsClicked)
+            {
+                DrawMusicMenu = true;
+                Console.WriteLine("Draw Music Menu");
+            }
+            else
+                DrawMusicMenu = false;
+
+            if (controlsButton.IsClicked)
+                DrawControlsMenu = true;
+            else
+                DrawControlsMenu = false;
+
+            if (quitGameButton.IsClicked)
+                QuitGame = true;
         }
 
         public override void Draw(GameTime gameTime) 

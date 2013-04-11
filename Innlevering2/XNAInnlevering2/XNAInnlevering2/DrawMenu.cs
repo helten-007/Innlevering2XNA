@@ -16,16 +16,18 @@ namespace XNAInnlevering2
     {
         private Game game;
         private SpriteBatch _spriteBatch;
-        public ContentManager _content;
+        private ContentManager _content;
         
-        private MouseState _currentMouseState, _previousMouseState;
         private Rectangle clientBounds;
-        private bool _gameIsRunning;
+        private bool _gameIsRunning, _drawStartMenu, _drawMusicMenu, _drawControlsMenu, 
+            _playStartSound, _playGameOverSound, _playFoodSound;
 
         private SnakeFood _snakeFood;
         private SnakeHead _snakeHead;
         private StartMenu _startMenu;
+        private ControlsMenu _controlsMenu;
         private MouseClass _mouse;
+        private SoundEffects _sound;
 
         public DrawMenu(Game game)
             : base(game)
@@ -40,33 +42,80 @@ namespace XNAInnlevering2
             _content = Game.Content;
             clientBounds = game.Window.ClientBounds;
 
-            _snakeFood = new SnakeFood(_spriteBatch, _content);
+            _snakeFood = new SnakeFood(_spriteBatch, _content, clientBounds);
             _snakeHead = new SnakeHead(_spriteBatch, _content, clientBounds);
-
             _startMenu = new StartMenu(_spriteBatch, _content, clientBounds);
+            _controlsMenu = new ControlsMenu(_spriteBatch, _content, clientBounds);
             _mouse = new MouseClass(_spriteBatch, _content);
+            _sound = new SoundEffects(_content);
+
+            _drawStartMenu = true;
+            _playStartSound = true;
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if (_playStartSound)
+            {
+                _sound.PlaySoundGameStart();
+                _playStartSound = false;
+            }
+
             if (_gameIsRunning)
             {
-                _snakeFood.Update(gameTime);
                 _snakeHead.Update(gameTime);
+                _snakeFood.Update(gameTime);
+                if (_snakeHead.GameOverScreen)
+                {
+                    _drawStartMenu = true;
+                    _gameIsRunning = false;
+                    _drawMusicMenu = false;
+                    _drawControlsMenu = false;
+                }
+                KeyboardState keyboardState = Keyboard.GetState();
+                if (keyboardState.IsKeyDown(Keys.Escape))
+                {
+                    _drawStartMenu = true;
+                    _gameIsRunning = false;
+                    _drawMusicMenu = false;
+                    _drawControlsMenu = false;
+                }
             }
-            else
-            {
-                _startMenu.Update(gameTime);
-                _mouse.Update(gameTime);
-            }
-            if (_snakeHead.SnakeIsDead)
-                game.Exit();
 
-            if (_startMenu.RunGame)
-                _gameIsRunning = true;
-            KeyboardState keyboardState = Keyboard.GetState();
-            
+            if (!_gameIsRunning)
+            {
+                _mouse.Update(gameTime);
+                if (_drawStartMenu)
+                {
+                    if (_startMenu.RestartGame)
+                    {
+                        RestartGame();
+                        _gameIsRunning = true;
+                    }
+                    _startMenu.Update(gameTime);
+                    if (_startMenu.DrawControlsMenu)
+                    {
+                        Console.WriteLine("tegn controls");
+                        _drawStartMenu = false;
+                        _drawControlsMenu = true;
+                    }
+                    if (_startMenu.RunGame)
+                        _gameIsRunning = true;
+                    if (_startMenu.QuitGame)
+                        game.Exit();
+                }
+                if (_drawControlsMenu)
+                {
+                    _controlsMenu.Update(gameTime);
+                    if (_controlsMenu.DrawStartMenu)
+                    {
+                        _drawStartMenu = true;
+                        _drawControlsMenu = false;
+                    }
+                }
+            }
         }
 
         public override void Draw(GameTime gameTime)
@@ -79,18 +128,21 @@ namespace XNAInnlevering2
 
             if (!_gameIsRunning)
             {
-                _startMenu.Draw(gameTime);
+                if (_drawStartMenu)
+                    _startMenu.Draw(gameTime);
+                if (_drawControlsMenu)
+                    _controlsMenu.Draw(gameTime);
                 _mouse.Draw(gameTime);
             }
-            if (_gameIsRunning)
-                Console.WriteLine("balle");
             _spriteBatch.End();
         }
 
-        public bool IsMousePressed()
+        public void RestartGame()
         {
-            return _currentMouseState.LeftButton == ButtonState.Released &&
-                _previousMouseState.LeftButton == ButtonState.Pressed;
+            _snakeHead.SnakeIsDead = false;
+            _snakeHead.SnakePosition = new Vector2(0, 0);
+            _snakeHead.MovementSpeed = _snakeHead.MinSpeed;
+            _snakeHead.MovingRight = true;
         }
     }
 }

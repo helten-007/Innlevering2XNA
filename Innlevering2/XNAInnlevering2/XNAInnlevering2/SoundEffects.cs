@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -18,43 +17,30 @@ namespace XNAInnlevering2
     /// </summary>
     public class SoundEffects
     {
-
         private SoundEffect soundGameStart, soundGameOver, soundFoodSpawn;
-
-        private ContentManager Content;
-
-
+        private ContentManager _content;
 
         public SoundEffects(ContentManager content)
         {
-            Content = content;
-
-            soundGameOver = Content.Load<SoundEffect>("Audio\\Effects\\Applause");
-            soundGameStart = Content.Load<SoundEffect>("Audio\\Effects\\Air Horn");
-            soundFoodSpawn = Content.Load<SoundEffect>("Audio\\Effects\\Door Bell");
+            _content = content;
+            soundGameOver = _content.Load<SoundEffect>("Audio\\Effects\\Applause");
+            soundGameStart = _content.Load<SoundEffect>("Audio\\Effects\\Air Horn");
+            soundFoodSpawn = _content.Load<SoundEffect>("Audio\\Effects\\Door Bell");
         }
 
-        public void Update(GameTime gameTime)
-        {
-
-        }
-
-
-        public void playFoodSpawn()
+        public void PlayFoodSpawn()
         {
             soundFoodSpawn.Play();
         }
 
-        public void playSoundGameOver()
+        public void PlaySoundGameOver()
         {
             soundGameOver.Play();
         }
 
-        public void playSoundGameStart()
+        public void PlaySoundGameStart()
         {
             soundGameStart.Play();
         }
-
     }
-
 }

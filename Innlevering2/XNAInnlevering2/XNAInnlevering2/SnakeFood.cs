@@ -16,31 +16,33 @@ namespace XNAInnlevering2
     {
         private SpriteBatch spriteBatch;
         private ContentManager content;
+        private Rectangle clientBounds;
         private Texture2D _snakeFood;
         private Rectangle _foodRect;
         private Random rand;
+        private int _gameTime, _timeBetweenFood;
 
-        int tid;
-
-        public SnakeFood(SpriteBatch spriteBatch, ContentManager content) 
+        public SnakeFood(SpriteBatch spriteBatch, ContentManager content, Rectangle clientBounds)
         {
             this.spriteBatch = spriteBatch;
             this.content = content;
+            this.clientBounds = clientBounds;
             _snakeFood = content.Load<Texture2D>("snakeFood");
             _foodRect = new Rectangle(-1000, -1000, _snakeFood.Width, _snakeFood.Height);
             rand = new Random();
-            tid = 0;
+            _timeBetweenFood = 5000;
+            _gameTime = _timeBetweenFood;
         }
 
         public void Update(GameTime gameTime)
         {
-            tid += gameTime.ElapsedGameTime.Milliseconds;
+            _gameTime += gameTime.ElapsedGameTime.Milliseconds;
 
-            if (tid > 1000)
+            if (_gameTime > _timeBetweenFood)
             {
-                tid = 0;
-                _foodRect.X = rand.Next(0, 800 - _snakeFood.Width);
-                _foodRect.Y = rand.Next(480 - _snakeFood.Height);
+                _gameTime = 0;
+                _foodRect.X = rand.Next(0, clientBounds.Width - _snakeFood.Width);
+                _foodRect.Y = rand.Next(0, clientBounds.Height - _snakeFood.Height);
             }
         }
 

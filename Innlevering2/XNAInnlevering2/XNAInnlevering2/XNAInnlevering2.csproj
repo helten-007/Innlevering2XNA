@@ -76,7 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackgroundMusic.cs" />
-    <Compile Include="Movement.cs" />
     <Compile Include="DrawData.cs" />
     <Compile Include="MouseClass.cs" />
     <Compile Include="SnakeFood.cs" />
@@ -91,7 +90,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="ButtonData.cs" />
-    <Compile Include="Snake.cs" />
+    <Compile Include="SnakeHead.cs" />
     <Compile Include="SoundEffects.cs" />
     <Compile Include="StartMenu.cs" />
   </ItemGroup>
