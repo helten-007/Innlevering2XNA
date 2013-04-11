@@ -27,6 +27,7 @@ namespace XNAInnlevering2
             Content = content;
 
             ///Gathers songs from the users computer
+            ///Three example songs is located within the project in Content//Audio//Music
             MediaLibrary library = new MediaLibrary();
             SongCollection songs = library.Songs;
             Song song = songs[0];
