@@ -107,31 +107,76 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Explo1.wav">
-      <Name>Explo1</Name>
+    <Compile Include="snakeHead.png">
+      <Name>snakeHead</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sound\Effects\boostSound.wav">
+      <Name>boostSound</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\Effects\foodAppears.wav">
+      <Name>foodAppears</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\Effects\foodEaten.wav">
+      <Name>foodEaten</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MinigunWindupAndFireLooped1.wav">
+    <Compile Include="Sound\Effects\Air Horn.wav">
+      <Name>Air Horn</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\Effects\Applause.wav">
+      <Name>Applause</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\Effects\Door Bell.wav">
+      <Name>Door Bell</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\Effects\Explo1.wav">
+      <Name>Explo1</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\Effects\fletcher_05.wav">
+      <Name>fletcher_05</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\Effects\MinigunWindupAndFireLooped1.wav">
       <Name>MinigunWindupAndFireLooped1</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="fletcher_05.wav">
-      <Name>fletcher_05</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
+    <Compile Include="Sound\Music\Kalimba.mp3">
+      <Name>Kalimba</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="snakeHead.png">
-      <Name>snakeHead</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
+    <Compile Include="Sound\Music\Maid with the Flaxen Hair.mp3">
+      <Name>Maid with the Flaxen Hair</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Sound\Music\Sleep Away.mp3">
+      <Name>Sleep Away</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

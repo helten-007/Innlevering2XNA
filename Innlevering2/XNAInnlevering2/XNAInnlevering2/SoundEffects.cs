@@ -25,9 +25,9 @@ namespace XNAInnlevering2
         public SoundEffects(ContentManager content)
         {
             _content = content;
-            soundGameOver = _content.Load<SoundEffect>("MinigunWindupAndFireLooped1");
-            soundGameStart = _content.Load<SoundEffect>("fletcher_05");
-            soundFoodSpawn = _content.Load<SoundEffect>("Explo1");
+            soundGameOver = _content.Load<SoundEffect>("Sound//Effects//MinigunWindupAndFireLooped1");
+            soundGameStart = _content.Load<SoundEffect>("Sound//Effects//fletcher_05");
+            soundFoodSpawn = _content.Load<SoundEffect>("Sound//Effects//foodAppears");
             _isMute = false;
         }
 

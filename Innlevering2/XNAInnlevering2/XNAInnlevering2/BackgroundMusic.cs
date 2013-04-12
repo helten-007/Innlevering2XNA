@@ -35,7 +35,7 @@ namespace XNAInnlevering2
             MediaPlayer.Play(songs);
             songIsPlaying = true;
 
-            soundGameStart = _content.Load<SoundEffect>("Explo1");
+            soundGameStart = _content.Load<SoundEffect>("Sound//Effects//BoostSound");
             airHornInstance = soundGameStart.CreateInstance();
         }
 
