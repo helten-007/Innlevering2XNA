@@ -107,7 +107,7 @@ namespace XNAInnlevering2
                 {
                     _snakeFood.IsEaten = true;
                     _player1.SnakeAteFood = true;
-                    _sound.PlayFoodSpawn();
+                    _sound.PlaySoundFoodSpawn();
                 }
                 else
                     _player1.SnakeAteFood = false;
@@ -116,13 +116,13 @@ namespace XNAInnlevering2
                 {
                     _snakeFood.IsEaten = true;
                     _player2.SnakeAteFood = true;
-                    _sound.PlayFoodSpawn();
+                    _sound.PlaySoundFoodSpawn();
                 }
                 else
                     _player2.SnakeAteFood = false;
 
                 if (_snakeFood.ChangePosition)
-                    _sound.PlayFoodSpawn();
+                    _sound.PlaySoundFoodSpawn();
             }
 
             if (!_gameIsRunning)

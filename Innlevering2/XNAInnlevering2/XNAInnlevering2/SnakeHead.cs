@@ -178,7 +178,7 @@ namespace XNAInnlevering2
 
                 Rectangle lastHead = _parts.Last();
                 Rectangle newHead = new Rectangle(0, 0, SnakeTexture.Width, SnakeTexture.Height);
-
+                
                 if (SnakeAteFood)
                 {
                     if (MovingUp)

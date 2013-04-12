@@ -27,12 +27,15 @@ namespace XNAInnlevering2
         public BackgroundMusic(ContentManager content)
         {
             _content = content;
+
             ///Gathers songs from the users computer
-            ///Three example songs is located within the project in Content//Audio//Music
+            ///Three example songs is located within the project in Content//Audio//Music in case
+            ///it does not exist any music on the user's computer.
             MediaLibrary library = new MediaLibrary();
             SongCollection songs = library.Songs;
             Song song = songs[0];
             MediaPlayer.Play(songs);
+
             songIsPlaying = true;
 
             soundGameStart = _content.Load<SoundEffect>("Sound//Effects//BoostSound");
@@ -87,7 +90,6 @@ namespace XNAInnlevering2
                 stopSoundGameStart();
                 Console.WriteLine("AAAAAA");
             }
-
 
             _previousKeyState = _currentKeyState;
         }
