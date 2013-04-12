@@ -54,7 +54,7 @@ namespace XNAInnlevering2
             _controlsMenu = new ControlsMenu(_spriteBatch, _content, clientBounds);
             _mouse = new MouseClass(_spriteBatch, _content);
             _sound = new SoundEffects(_content);
-            _music = new BackgroundMusic();
+            _music = new BackgroundMusic(_content);
 
             _drawStartMenu = true;
             _playStartSound = true;

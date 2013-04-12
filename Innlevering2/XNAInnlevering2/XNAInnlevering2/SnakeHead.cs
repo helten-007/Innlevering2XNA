@@ -171,6 +171,7 @@ namespace XNAInnlevering2
 
                     if (keyboardState.IsKeyDown(Keys.Space) && MovementSpeed < _maxSpeed)
                         MovementSpeed += _acceleration;
+
                     if (keyboardState.IsKeyUp(Keys.Space) && MovementSpeed > MinSpeed)
                         MovementSpeed -= _brake;
                 }

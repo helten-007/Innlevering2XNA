@@ -19,9 +19,14 @@ namespace XNAInnlevering2
     {
         private KeyboardState _previousKeyState;
         private bool songIsPlaying;
+        private ContentManager _content;
 
-        public BackgroundMusic()
+        private SoundEffect soundGameStart;
+        private static SoundEffectInstance airHornInstance;
+
+        public BackgroundMusic(ContentManager content)
         {
+            _content = content;
             ///Gathers songs from the users computer
             ///Three example songs is located within the project in Content//Audio//Music
             MediaLibrary library = new MediaLibrary();
@@ -29,6 +34,9 @@ namespace XNAInnlevering2
             Song song = songs[0];
             MediaPlayer.Play(songs);
             songIsPlaying = true;
+
+            soundGameStart = _content.Load<SoundEffect>("Explo1");
+            airHornInstance = soundGameStart.CreateInstance();
         }
 
         public void Update(GameTime gameTime)
@@ -65,7 +73,33 @@ namespace XNAInnlevering2
                 MediaPlayer.Volume -= 0.1f;
                 Console.WriteLine(MediaPlayer.Volume);
             }
+
+            if (_currentKeyState.IsKeyDown(Keys.Space) && !_previousKeyState.IsKeyDown(Keys.Space))
+            {
+                MediaPlayer.Pause();
+                playSoundGameStart();
+                Console.WriteLine("asdas");
+            }
+
+            if (!_currentKeyState.IsKeyDown(Keys.Space) && _previousKeyState.IsKeyDown(Keys.Space))
+            {
+                MediaPlayer.Resume();
+                stopSoundGameStart();
+                Console.WriteLine("AAAAAA");
+            }
+
+
             _previousKeyState = _currentKeyState;
+        }
+
+        public void playSoundGameStart()
+        {
+            airHornInstance.Play();
+        }
+
+        public void stopSoundGameStart()
+        {
+            airHornInstance.Stop();
         }
     }
 }
