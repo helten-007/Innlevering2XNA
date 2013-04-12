@@ -17,7 +17,7 @@ namespace XNAInnlevering2
     /// </summary>
     public class SoundEffects
     {
-        private SoundEffect soundGameStart, soundGameOver, soundFoodSpawn;
+        private SoundEffect soundGameStart, soundGameOver, soundFoodSpawn, soundFoodEaten;
         private ContentManager _content;
         private bool _isMute;
         private KeyboardState _previousKeyState;
@@ -28,6 +28,7 @@ namespace XNAInnlevering2
             soundGameOver = _content.Load<SoundEffect>("Sound//Effects//MinigunWindupAndFireLooped1");
             soundGameStart = _content.Load<SoundEffect>("Sound//Effects//fletcher_05");
             soundFoodSpawn = _content.Load<SoundEffect>("Sound//Effects//foodAppears");
+            soundFoodEaten = _content.Load<SoundEffect>("Sound//Effects//foodEaten");
             _isMute = false;
         }
 
@@ -41,7 +42,7 @@ namespace XNAInnlevering2
             _previousKeyState = _currentKeyState;
         }
 
-        public void PlayFoodSpawn()
+        public void PlaySoundFoodSpawn()
         {
             if (!_isMute)
                 soundFoodSpawn.Play();
@@ -57,6 +58,12 @@ namespace XNAInnlevering2
         {
             if (!_isMute)
              soundGameStart.Play();
+        }
+
+        public void PlaySoundFoodEaten()
+        {
+            if (!_isMute)
+                soundFoodEaten.Play();
         }
     }
 }
