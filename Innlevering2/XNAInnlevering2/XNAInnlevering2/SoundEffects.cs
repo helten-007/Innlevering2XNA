@@ -19,28 +19,44 @@ namespace XNAInnlevering2
     {
         private SoundEffect soundGameStart, soundGameOver, soundFoodSpawn;
         private ContentManager _content;
+        private bool _isMute;
+        private KeyboardState _previousKeyState;
 
         public SoundEffects(ContentManager content)
         {
             _content = content;
-            soundGameOver = _content.Load<SoundEffect>("Audio\\Effects\\Applause");
-            soundGameStart = _content.Load<SoundEffect>("Audio\\Effects\\Air Horn");
-            soundFoodSpawn = _content.Load<SoundEffect>("Audio\\Effects\\Door Bell");
+            soundGameOver = _content.Load<SoundEffect>("MinigunWindupAndFireLooped1");
+            soundGameStart = _content.Load<SoundEffect>("fletcher_05");
+            soundFoodSpawn = _content.Load<SoundEffect>("Explo1");
+            _isMute = false;
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            KeyboardState _currentKeyState = Keyboard.GetState();
+
+            if (_currentKeyState.IsKeyDown(Keys.J) && !_previousKeyState.IsKeyDown(Keys.J))
+                _isMute = true;
+            
+            _previousKeyState = _currentKeyState;
         }
 
         public void PlayFoodSpawn()
         {
-            soundFoodSpawn.Play();
+            if (!_isMute)
+                soundFoodSpawn.Play();
         }
 
         public void PlaySoundGameOver()
         {
-            soundGameOver.Play();
+            if (!_isMute)
+                soundGameOver.Play();
         }
 
         public void PlaySoundGameStart()
         {
-            soundGameStart.Play();
+            if (!_isMute)
+             soundGameStart.Play();
         }
     }
 }

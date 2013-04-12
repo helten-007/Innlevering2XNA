@@ -81,7 +81,6 @@
     <Compile Include="SnakeFood.cs" />
     <Compile Include="ControlsMenu.cs" />
     <Compile Include="DrawGame.cs" />
-    <Compile Include="DrawMenu.cs" />
     <Compile Include="IDrawSprites.cs" />
     <Compile Include="MainMenuButton.cs" />
     <Compile Include="Menu.cs" />
@@ -90,6 +89,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="ButtonData.cs" />
+    <Compile Include="SnakeBody.cs" />
     <Compile Include="SnakeHead.cs" />
     <Compile Include="SoundEffects.cs" />
     <Compile Include="StartMenu.cs" />

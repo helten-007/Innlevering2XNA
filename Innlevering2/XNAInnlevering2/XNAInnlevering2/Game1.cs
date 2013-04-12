@@ -19,17 +19,15 @@ namespace XNAInnlevering2
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         MouseState _currentMouseState;
-        MouseState _previousMouseState;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            DrawableGameComponent renderer = new DrawMenu(this);
+            DrawableGameComponent renderer = new DrawGame(this);
             Components.Add(renderer);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
-            
         }
 
         /// <summary>
@@ -70,7 +68,6 @@ namespace XNAInnlevering2
         protected override void Update(GameTime gameTime)
         {
             Window.Title = "X: " + _currentMouseState.X + " Y: " + _currentMouseState.Y;
-
             base.Update(gameTime);
         }
 
@@ -81,7 +78,6 @@ namespace XNAInnlevering2
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            
             base.Draw(gameTime);
         }
     }

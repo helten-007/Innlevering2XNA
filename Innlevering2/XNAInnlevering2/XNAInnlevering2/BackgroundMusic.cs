@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -16,16 +15,13 @@ namespace XNAInnlevering2
     /// <summary>
     /// Class that handles the background music in the game
     /// </summary>
-    class BackgroundMusic
+    public class BackgroundMusic
     {
-        private ContentManager Content;
-        KeyboardState _previousKeyState;
-        bool songIsPlaying;
+        private KeyboardState _previousKeyState;
+        private bool songIsPlaying;
 
-        public BackgroundMusic(ContentManager content)
+        public BackgroundMusic()
         {
-            Content = content;
-
             ///Gathers songs from the users computer
             ///Three example songs is located within the project in Content//Audio//Music
             MediaLibrary library = new MediaLibrary();
@@ -39,9 +35,9 @@ namespace XNAInnlevering2
         {
             KeyboardState _currentKeyState = Keyboard.GetState();
 
-            if (_currentKeyState.IsKeyDown(Keys.Q) == true && _previousKeyState.IsKeyDown(Keys.Q) == false)
+            if (_currentKeyState.IsKeyDown(Keys.M) && !_previousKeyState.IsKeyDown(Keys.M))
             {
-                if (songIsPlaying == false)
+                if (!songIsPlaying)
                 {
                     MediaPlayer.Resume();
                     songIsPlaying = true;
@@ -53,18 +49,18 @@ namespace XNAInnlevering2
                 }
             }
 
-            if (_currentKeyState.IsKeyDown(Keys.W) == true && _previousKeyState.IsKeyDown(Keys.W) == false)
+            if (_currentKeyState.IsKeyDown(Keys.N) && !_previousKeyState.IsKeyDown(Keys.N))
             {
                 MediaPlayer.MoveNext();
             }
 
-            if (_currentKeyState.IsKeyDown(Keys.A) == true && _previousKeyState.IsKeyDown(Keys.A) == false)
+            if (_currentKeyState.IsKeyDown(Keys.P) && !_previousKeyState.IsKeyDown(Keys.P))
             {
                 MediaPlayer.Volume += 0.1f;
                 Console.WriteLine(MediaPlayer.Volume);
             }
 
-            if (_currentKeyState.IsKeyDown(Keys.S) == true && _previousKeyState.IsKeyDown(Keys.S) == false)
+            if (_currentKeyState.IsKeyDown(Keys.O) && !_previousKeyState.IsKeyDown(Keys.O))
             {
                 MediaPlayer.Volume -= 0.1f;
                 Console.WriteLine(MediaPlayer.Volume);

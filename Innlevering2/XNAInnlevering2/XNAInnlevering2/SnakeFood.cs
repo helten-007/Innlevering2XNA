@@ -20,7 +20,18 @@ namespace XNAInnlevering2
         private Texture2D _snakeFood;
         private Rectangle _foodRect;
         private Random rand;
-        private int _gameTime, _timeBetweenFood;
+        private int _gameTime, _timeBetweenFood, _timeAfterEaten;
+
+        public bool ChangePosition { get; set; }
+        public bool IsEaten { get; set; }
+        public Rectangle FoodPosition 
+        {
+            get { return _foodRect; }
+            set 
+            {
+                _foodRect = value;
+            }
+        }
 
         public SnakeFood(SpriteBatch spriteBatch, ContentManager content, Rectangle clientBounds)
         {
@@ -32,17 +43,31 @@ namespace XNAInnlevering2
             rand = new Random();
             _timeBetweenFood = 5000;
             _gameTime = _timeBetweenFood;
+            _timeAfterEaten = _timeBetweenFood;
         }
 
         public void Update(GameTime gameTime)
         {
             _gameTime += gameTime.ElapsedGameTime.Milliseconds;
 
-            if (_gameTime > _timeBetweenFood)
+            if (!IsEaten)
             {
+                if (_gameTime > _timeBetweenFood)
+                {
+                    _gameTime = 0;
+                    _foodRect.X = rand.Next(0, clientBounds.Width - _snakeFood.Width);
+                    _foodRect.Y = rand.Next(0, clientBounds.Height - _snakeFood.Height);
+                    ChangePosition = true;
+                }
+                else
+                    ChangePosition = false;
+            }
+            else
+            {
+                _foodRect.X = -1000;
+                _foodRect.Y = -1000;
                 _gameTime = 0;
-                _foodRect.X = rand.Next(0, clientBounds.Width - _snakeFood.Width);
-                _foodRect.Y = rand.Next(0, clientBounds.Height - _snakeFood.Height);
+                IsEaten = false;
             }
         }
 

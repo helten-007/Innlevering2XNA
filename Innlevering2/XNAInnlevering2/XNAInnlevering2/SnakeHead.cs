@@ -18,17 +18,19 @@ namespace XNAInnlevering2
         public ContentManager content;
         public Rectangle clientBounds;
 
-        private Texture2D _snakeTexture;
         private Vector2 _position;
-        private bool _movingUp, _movingDown, _movingLeft;
-        private float maxSpeed;
-        private float acceleration;
-        private float brake;
+        private float _maxSpeed;
+        private float _acceleration;
+        private float _brake;
+        private int _playerNumber;
 
+        public bool MovingUp { get; set; }
+        public bool MovingDown { get; set; }
+        public bool MovingLeft { get; set; }
         public bool MovingRight { get; set; }
         public float MovementSpeed { get; set; }
         public float MinSpeed { get; set; }
-
+        public Texture2D SnakeTexture { get; set; }
         public bool SnakeIsDead { get; set; }
         public bool SnakeAteFood { get; set; }
         public bool GameOverScreen { get; set; }
@@ -44,80 +46,136 @@ namespace XNAInnlevering2
             }
         }
 
-        public SnakeHead(SpriteBatch spriteBatch, ContentManager content, Rectangle clientBounds)
+        public SnakeHead(SpriteBatch spriteBatch, ContentManager content, Rectangle clientBounds, Vector2 position, int playerNumber)
         {
             this.spriteBatch = spriteBatch;
             this.content = content;
             this.clientBounds = clientBounds;
-            _snakeTexture = content.Load<Texture2D>("snakeHead");
-            SnakePosition = new Vector2(10, 10);
-            MovingRight = true;
+            _playerNumber = playerNumber;
+            SnakeTexture = content.Load<Texture2D>("snakeHead");
+            SnakePosition = position;
+            if (_playerNumber == 1)
+                MovingRight = true;
+            if (_playerNumber == 2)
+                MovingLeft = true;
             MovementSpeed = 3;
-            maxSpeed = 15;
+            _maxSpeed = 15;
             MinSpeed = MovementSpeed;
-            acceleration = 0.5f;
-            brake = 0.08f;
+            _acceleration = 0.2f;
+            _brake = 0.08f;
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             if (SnakeIsDead)
                 GameOverScreen = true;
 
             else
             {
-                KeyboardState keyboardState = Keyboard.GetState();
-                GameOverScreen = false;
-                SnakeHitBox = new Rectangle((int)SnakePosition.X, (int)SnakePosition.Y, _snakeTexture.Width, _snakeTexture.Height);
-                if (keyboardState.IsKeyDown(Keys.W))
+                if (_playerNumber == 1)
                 {
-                    _movingUp = true;
-                    _movingDown = false;
-                    MovingRight = false;
-                    _movingLeft = false;
-                }
-                if (keyboardState.IsKeyDown(Keys.S))
-                {
-                    _movingUp = false;
-                    _movingDown = true;
-                    MovingRight = false;
-                    _movingLeft = false;
-                }
-                if (keyboardState.IsKeyDown(Keys.D))
-                {
-                    _movingUp = false;
-                    _movingDown = false;
-                    MovingRight = true;
-                    _movingLeft = false;
-                }
-                if (keyboardState.IsKeyDown(Keys.A))
-                {
-                    _movingUp = false;
-                    _movingDown = false;
-                    MovingRight = false;
-                    _movingLeft = true;
-                }
+                    KeyboardState keyboardState = Keyboard.GetState();
+                    GameOverScreen = false;
+                    SnakeHitBox = new Rectangle((int)SnakePosition.X, (int)SnakePosition.Y, SnakeTexture.Width, SnakeTexture.Height);
+                    if (keyboardState.IsKeyDown(Keys.W) && !MovingDown)
+                    {
+                        MovingUp = true;
+                        MovingDown = false;
+                        MovingRight = false;
+                        MovingLeft = false;
+                    }
+                    if (keyboardState.IsKeyDown(Keys.S) && !MovingUp)
+                    {
+                        MovingUp = false;
+                        MovingDown = true;
+                        MovingRight = false;
+                        MovingLeft = false;
+                    }
+                    if (keyboardState.IsKeyDown(Keys.D) && !MovingLeft)
+                    {
+                        MovingUp = false;
+                        MovingDown = false;
+                        MovingRight = true;
+                        MovingLeft = false;
+                    }
+                    if (keyboardState.IsKeyDown(Keys.A) && !MovingRight)
+                    {
+                        MovingUp = false;
+                        MovingDown = false;
+                        MovingRight = false;
+                        MovingLeft = true;
+                    }
 
-                if (_movingUp)
-                    _position.Y -= MovementSpeed;
-                if (_movingDown)
-                    _position.Y += MovementSpeed;
-                if (MovingRight)
-                    _position.X += MovementSpeed;
-                if (_movingLeft)
-                    _position.X -= MovementSpeed;
+                    if (MovingUp)
+                        _position.Y -= MovementSpeed;
+                    if (MovingDown)
+                        _position.Y += MovementSpeed;
+                    if (MovingRight)
+                        _position.X += MovementSpeed;
+                    if (MovingLeft)
+                        _position.X -= MovementSpeed;
 
-                if (keyboardState.IsKeyDown(Keys.Space) && MovementSpeed < maxSpeed)
-                    MovementSpeed += acceleration;
-                if (keyboardState.IsKeyUp(Keys.Space) && MovementSpeed > MinSpeed)
-                    MovementSpeed -= brake;
+                    if (keyboardState.IsKeyDown(Keys.Space) && MovementSpeed < _maxSpeed)
+                        MovementSpeed += _acceleration;
+                    if (keyboardState.IsKeyUp(Keys.Space) && MovementSpeed > MinSpeed)
+                        MovementSpeed -= _brake;
+                }
+                if (_playerNumber == 2)
+                {
+                    KeyboardState keyboardState = Keyboard.GetState();
+                    GameOverScreen = false;
+                    SnakeHitBox = new Rectangle((int)SnakePosition.X, (int)SnakePosition.Y, SnakeTexture.Width, SnakeTexture.Height);
+
+                    if (keyboardState.IsKeyDown(Keys.Up) && !MovingDown)
+                    {
+                        MovingUp = true;
+                        MovingDown = false;
+                        MovingRight = false;
+                        MovingLeft = false;
+                    }
+                    if (keyboardState.IsKeyDown(Keys.Down) && !MovingUp)
+                    {
+                        MovingUp = false;
+                        MovingDown = true;
+                        MovingRight = false;
+                        MovingLeft = false;
+                    }
+                    if (keyboardState.IsKeyDown(Keys.Right) && !MovingLeft)
+                    {
+                        MovingUp = false;
+                        MovingDown = false;
+                        MovingRight = true;
+                        MovingLeft = false;
+                    }
+                    if (keyboardState.IsKeyDown(Keys.Left) && !MovingRight)
+                    {
+                        MovingUp = false;
+                        MovingDown = false;
+                        MovingRight = false;
+                        MovingLeft = true;
+                    }
+
+                    if (MovingUp)
+                        _position.Y -= MovementSpeed;
+                    if (MovingDown)
+                        _position.Y += MovementSpeed;
+                    if (MovingRight)
+                        _position.X += MovementSpeed;
+                    if (MovingLeft)
+                        _position.X -= MovementSpeed;
+
+                    if (keyboardState.IsKeyDown(Keys.Space) && MovementSpeed < _maxSpeed)
+                        MovementSpeed += _acceleration;
+                    if (keyboardState.IsKeyUp(Keys.Space) && MovementSpeed > MinSpeed)
+                        MovementSpeed -= _brake;
+                }
             }
-            if (SnakePosition.X > clientBounds.Width - _snakeTexture.Width)
+            if (SnakePosition.X > clientBounds.Width - SnakeTexture.Width)
             {
                 SnakeIsDead = true;
                 Console.WriteLine("test");
             }
-            if (SnakePosition.Y > clientBounds.Height - _snakeTexture.Height)
+            if (SnakePosition.Y > clientBounds.Height - SnakeTexture.Height)
             {
                 SnakeIsDead = true;
                 Console.WriteLine("test");
@@ -134,9 +192,9 @@ namespace XNAInnlevering2
             }
         }
 
-        public void Draw(GameTime gameTime)
+        public virtual void Draw(GameTime gameTime)
         {
-            spriteBatch.Draw(_snakeTexture, SnakePosition, Color.White);
+            spriteBatch.Draw(SnakeTexture, SnakePosition, Color.White);
         }
     }
 }
