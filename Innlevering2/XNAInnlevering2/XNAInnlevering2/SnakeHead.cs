@@ -19,10 +19,12 @@ namespace XNAInnlevering2
         public Rectangle clientBounds;
 
         private Vector2 _position;
+        private Rectangle _lastTail;
         private float _maxSpeed;
         private float _acceleration;
         private float _brake;
         private int _playerNumber;
+        private List<Rectangle> _parts;
 
         public bool MovingUp { get; set; }
         public bool MovingDown { get; set; }
@@ -54,6 +56,9 @@ namespace XNAInnlevering2
             _playerNumber = playerNumber;
             SnakeTexture = content.Load<Texture2D>("snakeHead");
             SnakePosition = position;
+            _parts = new List<Rectangle>();
+            _parts.Add(new Rectangle((int)SnakePosition.X, (int)SnakePosition.Y, SnakeTexture.Width, SnakeTexture.Height));
+
             if (_playerNumber == 1)
                 MovingRight = true;
             if (_playerNumber == 2)
@@ -169,7 +174,40 @@ namespace XNAInnlevering2
                     if (keyboardState.IsKeyUp(Keys.Space) && MovementSpeed > MinSpeed)
                         MovementSpeed -= _brake;
                 }
+
+                Rectangle lastHead = _parts.Last();
+                Rectangle newHead = new Rectangle(0, 0, SnakeTexture.Width, SnakeTexture.Height);
+
+                if (SnakeAteFood)
+                {
+                    if (MovingUp)
+                    {
+                        newHead.X = lastHead.X;
+                        newHead.Y = lastHead.Y - SnakeTexture.Width;
+                    }
+                    if (MovingDown)
+                    {
+                        newHead.X = lastHead.X;
+                        newHead.Y = lastHead.Y + SnakeTexture.Width;
+                    }
+                    if (MovingLeft)
+                    {
+                        newHead.X = lastHead.X - SnakeTexture.Width;
+                        newHead.Y = lastHead.Y;
+                    }
+                    if (MovingRight)
+                    {
+                        newHead.X = lastHead.X + SnakeTexture.Width;
+                        newHead.Y = lastHead.Y;
+                    }
+                    _parts.Add(newHead);
+                }
             }
+            _lastTail = _parts.First();
+
+            if (SnakeAteFood)
+                _parts.Insert(0, _lastTail);
+
             if (SnakePosition.X > clientBounds.Width - SnakeTexture.Width)
             {
                 SnakeIsDead = true;
@@ -194,7 +232,20 @@ namespace XNAInnlevering2
 
         public virtual void Draw(GameTime gameTime)
         {
-            spriteBatch.Draw(SnakeTexture, SnakePosition, Color.White);
+            if (_playerNumber == 1)
+            {
+                foreach (Rectangle r in _parts)
+                {
+                    spriteBatch.Draw(SnakeTexture, new Vector2(r.X, r.Y), Color.Red);
+                }
+            }
+            if (_playerNumber == 2)
+            {
+                foreach (Rectangle r in _parts)
+                {
+                    spriteBatch.Draw(SnakeTexture, new Vector2(r.X, r.Y), Color.Yellow);
+                }
+            }
         }
     }
 }
